@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Development tool that calls /v1/converse and validates SSE responses without a device. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>StackChan.Gateway.DeviceSim</RootNamespace>
+    <AssemblyName>StackChan.Gateway.DeviceSim</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Use the SDK TestKit so the simulator and conformance tests apply the same rules. -->
+    <ProjectReference Include="..\..\src\sdk\Kkdev92.StackChan.Gateway.TestKit\Kkdev92.StackChan.Gateway.TestKit.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+<Project>
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <!-- Test code does not require XML documentation for public members.
+         Documentation generation remains enabled so IDE0005 still runs. -->
+    <!-- CA1707: Test names use underscores to separate conditions from expected results. -->
+    <!-- CA1822, CA1068, CA1305: Test fakes and deliberately malformed inputs do not follow
+         production member-placement, parameter-order, or culture rules. -->
+    <!-- CA1711: xUnit CollectionDefinition types follow the *Collection naming convention. -->
+    <NoWarn>$(NoWarn);CS1591;CA1707;CA1822;CA1068;CA1305;CA1711</NoWarn>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+</Project>

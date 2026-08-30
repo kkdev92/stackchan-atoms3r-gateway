@@ -1,0 +1,25 @@
+version: 2
+updates:
+  # Actions are pinned to SHAs, which means they never update on their own.
+  # Dependabot is what turns that pinning from "frozen" into "deliberate".
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+
+  # Versions are centrally managed in Directory.Packages.props and locked in
+  # packages.lock.json, so an update has to touch both. Dependabot handles that
+  # for NuGet; a bump that forgets the lock file fails CI's --locked-mode
+  # restore rather than merging.
+  #
+  # The Kkdev92.StackChan.* entries are this repository's own packages, resolved from the
+  # local feed. Ignoring them prevents Dependabot from replacing those entries with
+  # NuGet.org versions, which would bypass package-consumption verification.
+  - package-ecosystem: nuget
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "Kkdev92.StackChan.*"

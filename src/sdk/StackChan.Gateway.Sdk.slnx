@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="Kkdev92.StackChan.Gateway.Abstractions/Kkdev92.StackChan.Gateway.Abstractions.csproj" />
+    <Project Path="Kkdev92.StackChan.Gateway.AgentFramework/Kkdev92.StackChan.Gateway.AgentFramework.csproj" />
+    <Project Path="Kkdev92.StackChan.Gateway.Diagnostics/Kkdev92.StackChan.Gateway.Diagnostics.csproj" />
+    <Project Path="Kkdev92.StackChan.Gateway.Protocol.Atoms3R/Kkdev92.StackChan.Gateway.Protocol.Atoms3R.csproj" />
+    <Project Path="Kkdev92.StackChan.Gateway.Capabilities/Kkdev92.StackChan.Gateway.Capabilities.csproj" />
+    <Project Path="Kkdev92.StackChan.Gateway.Providers/Kkdev92.StackChan.Gateway.Providers.csproj" />
+    <Project Path="Kkdev92.StackChan.Gateway.Runtime/Kkdev92.StackChan.Gateway.Runtime.csproj" />
+    <Project Path="Kkdev92.StackChan.Gateway.TestKit/Kkdev92.StackChan.Gateway.TestKit.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="../../tests/sdk/Kkdev92.StackChan.Gateway.AgentFramework.Tests/Kkdev92.StackChan.Gateway.AgentFramework.Tests.csproj" />
+    <Project Path="../../tests/sdk/Kkdev92.StackChan.Gateway.Conformance.Tests/Kkdev92.StackChan.Gateway.Conformance.Tests.csproj" />
+    <Project Path="../../tests/sdk/Kkdev92.StackChan.Gateway.Protocol.Atoms3R.Tests/Kkdev92.StackChan.Gateway.Protocol.Atoms3R.Tests.csproj" />
+    <Project Path="../../tests/sdk/Kkdev92.StackChan.Gateway.Capabilities.Tests/Kkdev92.StackChan.Gateway.Capabilities.Tests.csproj" />
+    <Project Path="../../tests/sdk/Kkdev92.StackChan.Gateway.Providers.Tests/Kkdev92.StackChan.Gateway.Providers.Tests.csproj" />
+    <Project Path="../../tests/sdk/Kkdev92.StackChan.Gateway.Runtime.Tests/Kkdev92.StackChan.Gateway.Runtime.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/" />
+  <Folder Name="/tools/device-sim/">
+    <Project Path="../../tools/device-sim/StackChan.Gateway.DeviceSim.csproj" />
+  </Folder>
+</Solution>

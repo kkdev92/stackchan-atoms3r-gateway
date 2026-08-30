@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Define the SDK contracts without external packages or project references. -->
+  <PropertyGroup>
+    <RootNamespace>Kkdev92.StackChan.Gateway.Abstractions</RootNamespace>
+    <Description>Core audio, turn, session, and capability contracts for StackChan Gateway.</Description>
+  </PropertyGroup>
+
+</Project>

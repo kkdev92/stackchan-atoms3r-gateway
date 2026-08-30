@@ -1,0 +1,97 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+    # A release tag gets the whole run, not just the version check. The tag is
+    # what someone checks out to get that version, so "this tree builds" is
+    # worth re-establishing at the commit the tag actually points at.
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: "true"
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+
+jobs:
+  # The whole verification chain: SDK tests, pack, then the reference host's
+  # tests against those packages. Splitting it into separate jobs would mean
+  # shipping the local feed between them as an artifact, and the point of the
+  # chain is that step 3 consumes exactly what step 2 produced.
+  #
+  # Both platforms, because nothing here is meant to be Windows-only and the
+  # only way to keep that true is to run it.
+  build:
+    name: build and test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    steps:
+      # Pinned to SHAs. Check for newer releases before copying these.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # global.json pins the SDK, so no version is given here. A mismatch
+      # should fail loudly rather than roll forward silently.
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+
+      # Restoring with the lock file honoured, before anything else, so a
+      # dependency that drifted fails here with NU1403 rather than inside a
+      # test run where the cause is harder to read. The App solution cannot be
+      # restored yet: its Kkdev92.StackChan.* packages do not exist until pack.
+      - name: Restore (locked)
+        run: dotnet restore src/sdk/StackChan.Gateway.Sdk.slnx --locked-mode
+
+      - name: Verify formatting
+        run: dotnet format src/sdk/StackChan.Gateway.Sdk.slnx --verify-no-changes --no-restore
+
+      - name: Build, pack, and test the whole chain
+        shell: pwsh
+        run: ./eng/build-all.ps1 -Configuration Release
+
+      # After build-all, because the App solution cannot restore until the SDK
+      # packages exist in the local feed.
+      - name: Verify formatting (reference host)
+        run: dotnet format src/app/StackChan.Gateway.App.slnx --verify-no-changes --no-restore
+
+      - name: Upload packages
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: packages
+          path: |
+            local-nuget/*.nupkg
+            local-nuget/*.snupkg
+          if-no-files-found: error
+
+  # The version lives in one place and is copied into two others. This job rejects
+  # a tag whose commit does not contain matching version metadata before the
+  # release workflow can reach NuGet.org, where published versions are immutable.
+  version:
+    name: version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # The tag name goes through env rather than into the run line, so a tag
+      # is data and never becomes shell.
+      - name: Check the version is consistent
+        env:
+          TAG_NAME: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+        shell: pwsh
+        run: ./eng/check-version.ps1 -Tag $env:TAG_NAME

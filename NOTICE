@@ -1,0 +1,97 @@
+Kkdev92.StackChan.Gateway
+Copyright (c) 2026 kkdev92
+
+Except for the third-party material identified below, the original source code of
+this project is licensed under the MIT License. See LICENSE, included alongside
+this file.
+
+The published packages (Kkdev92.StackChan.Gateway.*) contain only this project's
+own code. The dependencies listed below are resolved from NuGet.org at restore
+time and are not redistributed here. They are recorded because this repository
+distributes source, and because a consumer of the packages acquires them too.
+
+--------------------------------------------------------------------------------
+Runtime dependencies of the published packages
+--------------------------------------------------------------------------------
+
+Kkdev92.StackChan.Gateway.Abstractions has no NuGet package dependencies.
+
+Microsoft.Agents.AI, Microsoft.Agents.AI.OpenAI
+    Copyright (c) Microsoft Corporation
+    MIT License
+    https://github.com/microsoft/agent-framework
+
+Microsoft.Extensions.AI
+Microsoft.Extensions.DependencyInjection.Abstractions
+Microsoft.Extensions.Hosting.Abstractions
+Microsoft.Extensions.Http
+Microsoft.Extensions.Logging.Abstractions
+Microsoft.Extensions.Options.ConfigurationExtensions
+    Copyright (c) .NET Foundation and Contributors
+    MIT License
+    https://github.com/dotnet/runtime, https://github.com/dotnet/extensions
+
+OpenAI
+    Copyright (c) OpenAI
+    MIT License
+    https://github.com/openai/openai-dotnet
+
+--------------------------------------------------------------------------------
+Build and test dependencies (not present in the published packages)
+--------------------------------------------------------------------------------
+
+xunit.v3
+    Copyright (c) .NET Foundation and Contributors
+    Apache License 2.0
+    https://github.com/xunit/xunit
+
+Shouldly
+    Copyright (c) Shouldly contributors
+    BSD 3-Clause License
+    https://github.com/shouldly/shouldly
+
+RichardSzalay.MockHttp
+    Copyright (c) Richard Szalay
+    MIT License
+    https://github.com/richardszalay/mockhttp
+
+Microsoft.AspNetCore.Mvc.Testing
+    Copyright (c) .NET Foundation and Contributors
+    MIT License
+    https://github.com/dotnet/aspnetcore
+
+--------------------------------------------------------------------------------
+Related projects and trademarks
+--------------------------------------------------------------------------------
+
+Stack-chan
+    A project by Shinya Ishikawa.
+    Apache License 2.0
+    https://github.com/meganetaaan/stack-chan
+
+    This product is a third-party community project. It is not an official
+    Stack-chan product and is not affiliated with, endorsed by or sponsored by
+    the Stack-chan project. The name is used here only to identify the robot
+    this software is built for.
+
+stackchan-atoms3r
+    The device firmware this gateway speaks to. Maintained by kkdev92 under the MIT License.
+    https://github.com/kkdev92/stackchan-atoms3r
+
+    The wire contract implemented by
+    Kkdev92.StackChan.Gateway.Protocol.Atoms3R is defined there. No code or
+    documentation text is copied from it into these packages; the contract is
+    reproduced from its specification.
+
+--------------------------------------------------------------------------------
+External services (neither bundled nor redistributed)
+--------------------------------------------------------------------------------
+
+The reference host in src/app is wired for whisper.cpp, Foundry Local, and
+Piper-plus with VOICEVOX, and calls WeatherAPI. None of them are included in
+this repository or in any package, and each carries its own license and terms.
+
+VOICEVOX in particular attaches terms to the use of its synthesized voices,
+including attribution requirements that apply to audio produced with them.
+Please review the applicable provider terms before use. Operators are responsible
+for meeting attribution and other requirements that apply to generated audio.

@@ -1,0 +1,97 @@
+name: release
+
+# Publishes the eight Kkdev92.StackChan.* packages to nuget.org.
+#
+# NuGet.org does not allow a version to be replaced or re-uploaded. Three controls
+# protect the publication step:
+#
+#   1. The whole chain runs again at the tagged commit, rather than trusting an
+#      artifact from an earlier run.
+#   2. The `release` environment requires a reviewer, so a tag alone does not
+#      publish.
+#   3. Trusted Publishing (OIDC) means no long-lived API key exists to leak. The
+#      key this run uses is minted for it and expires.
+#
+# Before the first release: register a Trusted Publishing policy on nuget.org for
+# this repository and this workflow file name, reserve the Kkdev92.StackChan.* ID prefix,
+# and create the `release` environment with a required reviewer.
+
+on:
+  push:
+    tags: ["v*"]
+  # A dry run before cutting a tag. Everything except the push.
+  workflow_dispatch:
+    inputs:
+      push:
+        description: "Actually push to nuget.org"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_NOLOGO: "true"
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+
+jobs:
+  publish:
+    name: publish
+    runs-on: windows-latest
+    environment: release
+    permissions:
+      contents: read
+      # For the OIDC token exchanged for a temporary NuGet key.
+      id-token: write
+    steps:
+      # Pinned to SHAs. Check for newer releases before copying these.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+
+      # The tag name goes through env rather than into the run line, so a tag is
+      # data and never becomes shell.
+      - name: Check the version and the tag agree
+        env:
+          TAG_NAME: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+        shell: pwsh
+        run: ./eng/check-version.ps1 -Tag $env:TAG_NAME
+
+      # The full chain, not just pack. The reference host's tests consume the
+      # packed packages, so this is what establishes that the artifacts about to
+      # be published actually work as packages.
+      - name: Build, pack, and test the whole chain
+        shell: pwsh
+        run: ./eng/build-all.ps1 -Configuration Release
+
+      - name: NuGet login
+        id: login
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
+        with:
+          user: kkdev92
+
+      - name: Push
+        if: github.ref_type == 'tag' || inputs.push
+        shell: pwsh
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        run: |
+          # --skip-duplicate so a retry after a partial failure finishes the
+          # remaining packages instead of stopping on the ones already up.
+          dotnet nuget push "local-nuget/*.nupkg" `
+            --api-key $env:NUGET_API_KEY `
+            --source https://api.nuget.org/v3/index.json `
+            --skip-duplicate
+
+      - name: Dry run summary
+        if: github.ref_type != 'tag' && !inputs.push
+        shell: pwsh
+        run: |
+          Write-Host 'Dry run. Packages that would be pushed:'
+          Get-ChildItem local-nuget -Filter *.nupkg | ForEach-Object { "  $($_.Name)" }

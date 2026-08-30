@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Use the Microsoft Testing Platform selected in global.json. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Kkdev92.StackChan.Gateway.Runtime.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Shouldly" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\sdk\Kkdev92.StackChan.Gateway.Runtime\Kkdev92.StackChan.Gateway.Runtime.csproj" />
+    <!-- Use the same test fakes as the published package. -->
+    <ProjectReference Include="..\..\..\src\sdk\Kkdev92.StackChan.Gateway.TestKit\Kkdev92.StackChan.Gateway.TestKit.csproj" />
+  </ItemGroup>
+
+</Project>

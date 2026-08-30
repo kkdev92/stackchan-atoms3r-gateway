@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Orchestrate recognition, agent responses, and synthesis without depending on HTTP or SSE. -->
+  <PropertyGroup>
+    <RootNamespace>Kkdev92.StackChan.Gateway.Runtime</RootNamespace>
+    <Description>Orchestrates speech recognition, agent responses, text shaping, and synthesis as a turn.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kkdev92.StackChan.Gateway.Abstractions\Kkdev92.StackChan.Gateway.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Kkdev92.StackChan.Gateway.Runtime.Tests" />
+  </ItemGroup>
+
+</Project>

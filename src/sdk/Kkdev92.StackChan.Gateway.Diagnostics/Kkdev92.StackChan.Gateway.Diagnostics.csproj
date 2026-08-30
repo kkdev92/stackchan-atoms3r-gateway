@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Provide fixed implementations for checking the device connection without external services. -->
+  <PropertyGroup>
+    <RootNamespace>Kkdev92.StackChan.Gateway.Diagnostics</RootNamespace>
+    <Description>Fixed recognition, responses, and tones for checking a StackChan Gateway device connection without external services.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kkdev92.StackChan.Gateway.Abstractions\Kkdev92.StackChan.Gateway.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
