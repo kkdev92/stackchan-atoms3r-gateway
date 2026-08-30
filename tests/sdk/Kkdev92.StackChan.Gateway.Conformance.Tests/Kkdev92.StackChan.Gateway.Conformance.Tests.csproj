@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Use the Microsoft Testing Platform selected in global.json. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Kkdev92.StackChan.Gateway.Conformance.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Shouldly" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Inspect public APIs and project references across all SDK projects.
+         Do not reference the application so the checks prove that the SDK stands alone. -->
+    <ProjectReference Include="..\..\..\src\sdk\Kkdev92.StackChan.Gateway.Abstractions\Kkdev92.StackChan.Gateway.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\src\sdk\Kkdev92.StackChan.Gateway.Runtime\Kkdev92.StackChan.Gateway.Runtime.csproj" />
+    <ProjectReference Include="..\..\..\src\sdk\Kkdev92.StackChan.Gateway.Protocol.Atoms3R\Kkdev92.StackChan.Gateway.Protocol.Atoms3R.csproj" />
+    <ProjectReference Include="../../../src/sdk/Kkdev92.StackChan.Gateway.Providers/Kkdev92.StackChan.Gateway.Providers.csproj" />
+    <ProjectReference Include="../../../src/sdk/Kkdev92.StackChan.Gateway.Capabilities/Kkdev92.StackChan.Gateway.Capabilities.csproj" />
+    <ProjectReference Include="..\..\..\src\sdk\Kkdev92.StackChan.Gateway.AgentFramework\Kkdev92.StackChan.Gateway.AgentFramework.csproj" />
+    <ProjectReference Include="..\..\..\src\sdk\Kkdev92.StackChan.Gateway.Diagnostics\Kkdev92.StackChan.Gateway.Diagnostics.csproj" />
+    <ProjectReference Include="..\..\..\src\sdk\Kkdev92.StackChan.Gateway.TestKit\Kkdev92.StackChan.Gateway.TestKit.csproj" />
+  </ItemGroup>
+
+</Project>

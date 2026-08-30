@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Keep Microsoft Agent Framework types inside this package. -->
+  <PropertyGroup>
+    <RootNamespace>Kkdev92.StackChan.Gateway.AgentFramework</RootNamespace>
+    <Description>Generates streaming responses for StackChan with Microsoft Agent Framework.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Agents.AI" />
+    <PackageReference Include="Microsoft.Agents.AI.OpenAI" />
+    <PackageReference Include="Microsoft.Extensions.AI" />
+    <PackageReference Include="OpenAI" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Used by DI extensions and startup capability validation. -->
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <!-- Used to log capability prefetch failures. -->
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kkdev92.StackChan.Gateway.Abstractions\Kkdev92.StackChan.Gateway.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Kkdev92.StackChan.Gateway.AgentFramework.Tests" />
+  </ItemGroup>
+
+</Project>

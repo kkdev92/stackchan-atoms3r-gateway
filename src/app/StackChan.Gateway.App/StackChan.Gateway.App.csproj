@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!--
+    Reference the SDK as packages from the local NuGet feed rather than as projects so the build
+    verifies the distribution boundary. Directory.Packages.props manages package versions.
+    Keep invariant globalization disabled because Japanese time formatting requires ja-JP.
+  -->
+  <PropertyGroup>
+    <RootNamespace>StackChan.Gateway.App</RootNamespace>
+    <UserSecretsId>stackchan-gateway-app</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Abstractions is referenced transitively by the SDK packages below. -->
+    <PackageReference Include="Kkdev92.StackChan.Gateway.Runtime" />
+    <PackageReference Include="Kkdev92.StackChan.Gateway.Protocol.Atoms3R" />
+    <PackageReference Include="Kkdev92.StackChan.Gateway.Capabilities" />
+    <PackageReference Include="Kkdev92.StackChan.Gateway.Providers" />
+    <PackageReference Include="Kkdev92.StackChan.Gateway.AgentFramework" />
+    <PackageReference Include="Kkdev92.StackChan.Gateway.Diagnostics" />
+
+    <!-- Keep concrete provider and capability implementations in the application composition. -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="StackChan.Gateway.App.Tests" />
+    <InternalsVisibleTo Include="StackChan.Provider.WhisperCpp.Tests" />
+    <InternalsVisibleTo Include="StackChan.Provider.PiperPlus.Tests" />
+    <InternalsVisibleTo Include="StackChan.Capability.Weather.Tests" />
+  </ItemGroup>
+
+</Project>

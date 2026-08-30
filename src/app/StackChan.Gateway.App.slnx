@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="StackChan.Gateway.App/StackChan.Gateway.App.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="../../tests/app/StackChan.Gateway.App.Tests/StackChan.Gateway.App.Tests.csproj" />
+    <Project Path="../../tests/app/StackChan.Provider.WhisperCpp.Tests/StackChan.Provider.WhisperCpp.Tests.csproj" />
+    <Project Path="../../tests/app/StackChan.Provider.PiperPlus.Tests/StackChan.Provider.PiperPlus.Tests.csproj" />
+    <Project Path="../../tests/app/StackChan.Capability.Weather.Tests/StackChan.Capability.Weather.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Use the Microsoft Testing Platform selected in global.json. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Kkdev92.StackChan.Gateway.Protocol.Atoms3R.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Shouldly" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\sdk\Kkdev92.StackChan.Gateway.Protocol.Atoms3R\Kkdev92.StackChan.Gateway.Protocol.Atoms3R.csproj" />
+    <!-- Use the same conformance checks and fakes as the published package. -->
+    <ProjectReference Include="..\..\..\src\sdk\Kkdev92.StackChan.Gateway.TestKit\Kkdev92.StackChan.Gateway.TestKit.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,15 @@
+<Project>
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <!--
+      Tools are not distributed libraries, so their public APIs do not require XML documentation.
+      Scenario names and validation helpers may use underscores or deliberately irregular shapes.
+      XML documentation generation remains inherited so IDE0005 still runs.
+    -->
+    <NoWarn>$(NoWarn);CS1591;CA1707;CA1822;CA1068;CA1305;CA1711</NoWarn>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+</Project>

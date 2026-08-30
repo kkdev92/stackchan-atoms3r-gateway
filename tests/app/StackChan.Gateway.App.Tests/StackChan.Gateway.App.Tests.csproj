@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Use the Microsoft Testing Platform selected in global.json. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>StackChan.Gateway.App.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Shouldly" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <!-- Use the published TestKit package for fakes and protocol conformance checks. -->
+    <PackageReference Include="Kkdev92.StackChan.Gateway.TestKit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Reference the application project so tests start the real entry point. -->
+    <ProjectReference Include="..\..\..\src\app\StackChan.Gateway.App\StackChan.Gateway.App.csproj" />
+  </ItemGroup>
+
+</Project>

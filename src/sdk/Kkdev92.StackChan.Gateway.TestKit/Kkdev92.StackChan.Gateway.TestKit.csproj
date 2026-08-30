@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Remain independent of xUnit and other test frameworks. -->
+  <PropertyGroup>
+    <RootNamespace>Kkdev92.StackChan.Gateway.TestKit</RootNamespace>
+    <Description>Test support library with StackChan Gateway protocol conformance checks and fakes.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kkdev92.StackChan.Gateway.Abstractions\Kkdev92.StackChan.Gateway.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,47 @@
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <!-- SDK version shared by Directory.Packages.props references and release tags. -->
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <Authors>StackChan Gateway contributors</Authors>
+    <Product>StackChan Gateway SDK</Product>
+    <Copyright>Copyright (c) 2026 kkdev92</Copyright>
+  </PropertyGroup>
+
+  <!-- NuGet metadata shared by every SDK package. -->
+  <PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>stackchan;robot;voice;agent;atoms3r;sdk</PackageTags>
+    <PackageProjectUrl>https://github.com/kkdev92/stackchan-atoms3r-gateway</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kkdev92/stackchan-atoms3r-gateway</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <!-- Enable Source Link and symbol packages for source-level debugging by consumers. -->
+  <PropertyGroup>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!-- Symbols are distributed in snupkg files rather than embedded in assemblies. -->
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <!-- Package validation is disabled until a baseline package is available for API comparison. -->
+  <PropertyGroup>
+    <EnablePackageValidation>false</EnablePackageValidation>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Publish each package README on NuGet.org and include it in the package. -->
+    <None Include="README.md" Pack="true" PackagePath="/" Visible="false" />
+
+    <!-- Include NOTICE and LICENSE so redistributors retain license and attribution information. -->
+    <None Include="$(MSBuildThisFileDirectory)../../NOTICE" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="$(MSBuildThisFileDirectory)../../LICENSE" Pack="true" PackagePath="/" Visible="false" />
+  </ItemGroup>
+
+</Project>

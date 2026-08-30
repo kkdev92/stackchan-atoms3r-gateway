@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Provide audio conversion, response limits, and error classification shared by providers. -->
+  <PropertyGroup>
+    <RootNamespace>Kkdev92.StackChan.Gateway.Providers</RootNamespace>
+    <Description>WAV conversion, transcript shaping, HTTP response limits, and error classification for StackChan Gateway providers.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kkdev92.StackChan.Gateway.Abstractions\Kkdev92.StackChan.Gateway.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Kkdev92.StackChan.Gateway.Providers.Tests" />
+  </ItemGroup>
+
+</Project>

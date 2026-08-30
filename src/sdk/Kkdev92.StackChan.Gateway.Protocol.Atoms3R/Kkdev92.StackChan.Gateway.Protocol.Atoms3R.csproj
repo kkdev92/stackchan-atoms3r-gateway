@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Implement the communication protocol used by AtomS3R firmware. -->
+  <PropertyGroup>
+    <RootNamespace>Kkdev92.StackChan.Gateway.Protocol.Atoms3R</RootNamespace>
+    <Description>Implements SSE, Base64 PCM, sequence numbers, and HTTP headers for AtomS3R devices.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Use Options, DI, and Configuration from the ASP.NET Core shared framework. -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kkdev92.StackChan.Gateway.Abstractions\Kkdev92.StackChan.Gateway.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Kkdev92.StackChan.Gateway.Protocol.Atoms3R.Tests" />
+    <InternalsVisibleTo Include="Kkdev92.StackChan.Gateway.Conformance.Tests" />
+  </ItemGroup>
+
+</Project>
