@@ -2,6 +2,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Kkdev92.StackChan.Gateway.Abstractions?label=nuget%20%28Abstractions%29)](https://www.nuget.org/packages/Kkdev92.StackChan.Gateway.Abstractions)
 [![CI](https://github.com/kkdev92/stackchan-atoms3r-gateway/actions/workflows/ci.yml/badge.svg)](https://github.com/kkdev92/stackchan-atoms3r-gateway/actions)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/14383/badge)](https://www.bestpractices.dev/projects/14383)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![.NET](https://img.shields.io/badge/.NET-10.0-blue.svg)](https://dotnet.microsoft.com/)
 
@@ -15,7 +16,7 @@ _Designed for a robot on a local network, with support for locally hosted models
 Fixed firmware, extensible gateway
 ```
 
-> **Status:** `0.1.0`, pre-release, and not yet published on NuGet.org. The wire format targets
+> **Status:** `0.1.0`, pre-release, published on NuGet.org. The wire format targets
 > [stackchan-atoms3r](https://github.com/kkdev92/stackchan-atoms3r) `v0.1.0` or later. Public SDK
 > APIs may change before `1.0.0`.
 
