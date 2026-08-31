@@ -8,6 +8,9 @@ TestResults/
 local-nuget/*
 !local-nuget/.gitkeep
 
+# Local configuration for AI-assisted development sessions. Machine-specific.
+.claude/
+
 # Local MCP server configuration for AI-assisted development. Machine-specific.
 .mcp.json
 

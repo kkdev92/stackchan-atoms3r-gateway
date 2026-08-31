@@ -2,14 +2,17 @@ name: release
 
 # Publishes the eight Kkdev92.StackChan.* packages to nuget.org.
 #
-# NuGet.org does not allow a version to be replaced or re-uploaded. Three controls
+# NuGet.org does not allow a version to be replaced or re-uploaded. Four controls
 # protect the publication step:
 #
 #   1. The whole chain runs again at the tagged commit, rather than trusting an
 #      artifact from an earlier run.
-#   2. The `release` environment requires a reviewer, so a tag alone does not
+#   2. Two jobs, split by what each is trusted with. `verify` builds, tests and
+#      packs with no key and no environment; `publish` holds the key and nothing
+#      else. A compromised dependency in the build cannot publish anything.
+#   3. The `release` environment requires a reviewer, so a tag alone does not
 #      publish.
-#   3. Trusted Publishing (OIDC) means no long-lived API key exists to leak. The
+#   4. Trusted Publishing (OIDC) means no long-lived API key exists to leak. The
 #      key this run uses is minted for it and expires.
 #
 # Before the first release: register a Trusted Publishing policy on nuget.org for
@@ -19,13 +22,11 @@ name: release
 on:
   push:
     tags: ["v*"]
-  # A dry run before cutting a tag. Everything except the push.
+  # A manual run is always a dry run: it builds, tests and packs, and the publishing job is gated
+  # on the event being a tag push. There is deliberately no input to override that — an option
+  # that cannot change the outcome is worse than no option because somebody will rely on it, and
+  # one that could publish from an arbitrary branch is worse still.
   workflow_dispatch:
-    inputs:
-      push:
-        description: "Actually push to nuget.org"
-        type: boolean
-        default: false
 
 permissions:
   contents: read
@@ -39,14 +40,14 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: "true"
 
 jobs:
-  publish:
-    name: publish
+  # No environment here. The `release` environment only permits deployments from a v* tag, so a
+  # job carrying it is refused outright on a manual run — which is how the dry run used to fail
+  # before it could build anything. Everything that does not need the NuGet key lives here.
+  verify:
+    name: build, test and pack
     runs-on: windows-latest
-    environment: release
     permissions:
       contents: read
-      # For the OIDC token exchanged for a temporary NuGet key.
-      id-token: write
     steps:
       # Pinned to SHAs. Check for newer releases before copying these.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -70,6 +71,56 @@ jobs:
         shell: pwsh
         run: ./eng/build-all.ps1 -Configuration Release
 
+      # Exactly eight packages and eight symbol packages. Only src/sdk is packable; the
+      # reference host and the tests are not, so a change that accidentally starts packing one
+      # of them shows up here rather than on nuget.org.
+      - name: Check the artefact set
+        shell: pwsh
+        run: |
+          $nupkg = @(Get-ChildItem local-nuget -Filter *.nupkg)
+          $snupkg = @(Get-ChildItem local-nuget -Filter *.snupkg)
+
+          if ($nupkg.Count -ne 8 -or $snupkg.Count -ne 8) {
+            Write-Error "Expected 8 nupkg and 8 snupkg, found $($nupkg.Count) and $($snupkg.Count)."
+            $nupkg + $snupkg | ForEach-Object { "  $($_.Name)" }
+            exit 1
+          }
+
+          Write-Host 'Packages that a tag push would publish:'
+          $nupkg | ForEach-Object { "  $($_.Name)" }
+
+      # Everything downstream consumes this rather than rebuilding. The packages that were tested
+      # are the packages that get published; a second build could differ from the one verified.
+      - name: Upload packages
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: nupkg
+          path: |
+            local-nuget/*.nupkg
+            local-nuget/*.snupkg
+          if-no-files-found: error
+
+  # The only job that holds the NuGet key, and the only one carrying the environment. Gated on a
+  # tag push, so a manual run stops after verify with nothing published.
+  publish:
+    name: push to nuget.org
+    needs: verify
+    if: github.event_name == 'push'
+    runs-on: windows-latest
+    environment: release
+    permissions:
+      # For the OIDC token exchanged for a temporary NuGet key, and nothing else.
+      id-token: write
+    steps:
+      # No checkout. This job needs the packages, not the source, and code it does not check out
+      # is code that cannot run while the NuGet key is live.
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: nupkg
+          path: local-nuget
+
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+
       - name: NuGet login
         id: login
         uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
@@ -77,7 +128,6 @@ jobs:
           user: kkdev92
 
       - name: Push
-        if: github.ref_type == 'tag' || inputs.push
         shell: pwsh
         env:
           NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
@@ -99,10 +149,3 @@ jobs:
           dotnet nuget push "local-nuget/*.nupkg" `
             --api-key $env:NUGET_API_KEY `
             --source https://api.nuget.org/v3/index.json
-
-      - name: Dry run summary
-        if: github.ref_type != 'tag' && !inputs.push
-        shell: pwsh
-        run: |
-          Write-Host 'Dry run. Packages that would be pushed:'
-          Get-ChildItem local-nuget -Filter *.nupkg | ForEach-Object { "  $($_.Name)" }
