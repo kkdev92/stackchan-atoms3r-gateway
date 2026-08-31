@@ -142,10 +142,41 @@ jobs:
             exit 1
           }
 
+          # `dotnet nuget push "local-nuget/*.nupkg"` fails with "File does not exist". The
+          # CLI expands a wildcard only against the current directory, so a pattern carrying a
+          # path never matches — measured, and it fails from bash too when the shell is stopped
+          # from expanding it first. The bash lanes elsewhere work because the shell resolves
+          # the pattern before dotnet sees it; pwsh does not do that for a native command.
+          #
+          # Every documented example passes either one file or a bare "*.nupkg" from the folder
+          # the packages are in. This does the same: enumerate, then push by name from there.
+          $packages = @(Get-ChildItem local-nuget -Filter *.nupkg)
+
+          if ($packages.Count -ne 8) {
+            Write-Error "Expected 8 packages to push, found $($packages.Count)."
+            exit 1
+          }
+
+          # Pushed from inside local-nuget, by file name. A .snupkg is published automatically
+          # with its .nupkg, but only when both sit in the same folder as the push is made from
+          # (documented on Learn: "Both .nupkg and .snupkg files need to be present in the
+          # current folder"). Passing an absolute path from elsewhere would publish the
+          # assemblies and silently leave the symbols behind.
+          Set-Location local-nuget
+
           # No --skip-duplicate. A version already on nuget.org means this tag has been published
           # before, and continuing would attach today's build to yesterday's version while
           # reporting success. Failing is the only honest outcome; nuget.org cannot replace a
           # published version, so the fix is always a new one.
-          dotnet nuget push "local-nuget/*.nupkg" `
-            --api-key $env:NUGET_API_KEY `
-            --source https://api.nuget.org/v3/index.json
+          foreach ($package in $packages) {
+            Write-Host "pushing $($package.Name)"
+
+            dotnet nuget push $package.Name `
+              --api-key $env:NUGET_API_KEY `
+              --source https://api.nuget.org/v3/index.json
+
+            if ($LASTEXITCODE -ne 0) {
+              Write-Error "Pushing $($package.Name) failed. Packages pushed before it are on nuget.org and cannot be replaced; fix the cause and publish a new version."
+              exit $LASTEXITCODE
+            }
+          }
