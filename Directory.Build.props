@@ -7,6 +7,9 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <Deterministic>true</Deterministic>
+    <!-- Normalises paths embedded by Source Link. Set by the CI environment variable so a local
+         build stays debuggable against the working tree. -->
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
     <!-- Generate public API documentation and run IDE0005 during the build. -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

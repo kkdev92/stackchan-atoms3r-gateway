@@ -82,12 +82,23 @@ jobs:
         env:
           NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
         run: |
-          # --skip-duplicate so a retry after a partial failure finishes the
-          # remaining packages instead of stopping on the ones already up.
+          # An unset key is the failure this catches: no Trusted Publishing policy, a mismatched
+          # field in it, or a wrong nuget.org profile name all come back as an empty string, and
+          # dotnet nuget push would report a confusing authentication error instead of the cause.
+          if (-not $env:NUGET_API_KEY) {
+            Write-Error ("No API key came back from nuget.org. Check that a Trusted Publishing " +
+              "policy exists for this owner, this repository, release.yml and the release " +
+              "environment, and that the user below is the nuget.org profile name.")
+            exit 1
+          }
+
+          # No --skip-duplicate. A version already on nuget.org means this tag has been published
+          # before, and continuing would attach today's build to yesterday's version while
+          # reporting success. Failing is the only honest outcome; nuget.org cannot replace a
+          # published version, so the fix is always a new one.
           dotnet nuget push "local-nuget/*.nupkg" `
             --api-key $env:NUGET_API_KEY `
-            --source https://api.nuget.org/v3/index.json `
-            --skip-duplicate
+            --source https://api.nuget.org/v3/index.json
 
       - name: Dry run summary
         if: github.ref_type != 'tag' && !inputs.push

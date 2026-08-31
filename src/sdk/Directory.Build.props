@@ -5,9 +5,10 @@
     <IsPackable>true</IsPackable>
     <!-- SDK version shared by Directory.Packages.props references and release tags. -->
     <VersionPrefix>0.1.0</VersionPrefix>
-    <Authors>StackChan Gateway contributors</Authors>
+    <Authors>kkdev92</Authors>
+    <Company>kkdev92</Company>
     <Product>StackChan Gateway SDK</Product>
-    <Copyright>Copyright (c) 2026 kkdev92</Copyright>
+    <Copyright>Copyright (c) kkdev92</Copyright>
   </PropertyGroup>
 
   <!-- NuGet metadata shared by every SDK package. -->
@@ -15,9 +16,13 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>stackchan;robot;voice;agent;atoms3r;sdk</PackageTags>
-    <PackageProjectUrl>https://github.com/kkdev92/stackchan-atoms3r-gateway</PackageProjectUrl>
+    <!-- Two destinations on purpose. nuget.org renders these as "Project website" and
+         "Source repository"; the site is where this project sits among the others, and the
+         repository is where the code, the docs and the issues are. -->
+    <PackageProjectUrl>https://kkdev92.dev/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kkdev92/stackchan-atoms3r-gateway</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <!-- Enable Source Link and symbol packages for source-level debugging by consumers. -->
