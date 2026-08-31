@@ -3,7 +3,7 @@
     Runs SDK tests, packages the SDK, and then runs application tests.
 
 .DESCRIPTION
-    The application consumes SDK packages from local-nuget instead of project references.
+    The application consumes SDK packages from artifacts instead of project references.
     This script refreshes those packages before testing the application.
 #>
 [CmdletBinding()]

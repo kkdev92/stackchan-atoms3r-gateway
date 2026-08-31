@@ -50,7 +50,7 @@ tools/       Projects that are not shipped. device-sim drives the wire without a
 eng/         The build and release machinery: scripts, and the shared package-README footer
 docs/        Architecture, configuration, operations
 .config/     Local dotnet tool manifest. `dotnet tool restore` before using dotnet-counters
-local-nuget/ The local feed. Contents are gitignored; .gitkeep is not
+artifacts/   Packed SDK packages. Created by pack-sdk.ps1; gitignored
 ```
 
 `tools/` holds projects, `eng/` holds scripts and MSBuild fragments. That is the only reason the
@@ -60,8 +60,9 @@ The solution files live beside what they build: `src/sdk/StackChan.Gateway.Sdk.s
 `src/app/StackChan.Gateway.App.slnx`. Test and tool projects are referenced from them with
 `../../`.
 
-`local-nuget/.gitkeep` has to stay tracked. `nuget.config` points a package source at that
-directory and restore fails with NU1301 if it does not exist.
+`nuget.config` points a package source at `artifacts/`, and `packageSourceMapping` sends only
+`Kkdev92.StackChan.*` there. The directory does not need to exist for a restore to succeed —
+measured — so nothing in it is tracked.
 
 ## Checks
 
@@ -75,7 +76,7 @@ It does three things in order, and stops at the first failure:
 
 ```text
 1. dotnet test src/sdk/StackChan.Gateway.Sdk.slnx
-2. pack-sdk.ps1                                     packages into local-nuget
+2. pack-sdk.ps1                                     packages into artifacts
 3. dotnet test src/app/StackChan.Gateway.App.slnx   against those packages
 ```
 

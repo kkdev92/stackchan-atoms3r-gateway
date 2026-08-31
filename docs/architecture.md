@@ -83,7 +83,7 @@ directions. The ones that matter most:
 ```mermaid
 flowchart LR
     T1["dotnet test<br/>src/sdk/…Sdk.slnx"]
-    P["pack-sdk.ps1<br/>nupkg + snupkg<br/>→ local-nuget/"]
+    P["pack-sdk.ps1<br/>nupkg + snupkg<br/>→ artifacts/"]
     T2["dotnet test<br/>src/app/…App.slnx"]
     T1 --> P --> T2
 
