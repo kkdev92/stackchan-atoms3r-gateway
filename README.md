@@ -16,7 +16,7 @@ _Designed for a robot on a local network, with support for locally hosted models
 Fixed firmware, extensible gateway
 ```
 
-> **Status:** `0.1.0`, pre-release, published on NuGet.org. The wire format targets
+> **Status:** Pre-release, published on NuGet.org. The wire format targets
 > [stackchan-atoms3r](https://github.com/kkdev92/stackchan-atoms3r) `v0.1.0` or later. Public SDK
 > APIs may change before `1.0.0`.
 
