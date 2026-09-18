@@ -2,9 +2,13 @@
 
 ## Supported versions
 
-Only `main` and the most recent `0.1.x` packages are supported. Fixes land on `main` and are
+Only `main` and the most recent release are supported. Fixes land on `main` and are
 included in the next release; older versions are not maintained as separate supported lines.
 All eight packages move together.
+
+Which release that is comes from the NuGet badge in the readme and from the tags, not from
+a number written out here: one in prose is correct on the day it is written and wrong on
+the day the next one ships, with nothing failing in between.
 
 ## Reporting a vulnerability
 
