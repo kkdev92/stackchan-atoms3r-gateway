@@ -76,6 +76,7 @@ jobs:
             artifacts/*.nupkg
             artifacts/*.snupkg
           if-no-files-found: error
+          retention-days: 14
 
   # The version lives in one place and is copied into two others. This job rejects
   # a tag whose commit does not contain matching version metadata before the
