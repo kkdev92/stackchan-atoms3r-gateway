@@ -13,11 +13,19 @@ updates:
   # for NuGet; a bump that forgets the lock file fails CI's --locked-mode
   # restore rather than merging.
   #
+  # Dependabot finds projects through a solution or project file in the configured
+  # directory. The repository root has neither, so the SDK solution is named instead;
+  # it covers the SDK, its tests and the device simulator. The App solution is left
+  # out: it restores Kkdev92.StackChan.* from the local feed that eng/build-all.ps1
+  # produces, which does not exist in Dependabot's checkout, so its restore cannot
+  # succeed there. RichardSzalay.MockHttp, referenced only by the App tests, is
+  # therefore updated by hand.
+  #
   # The Kkdev92.StackChan.* entries are this repository's own packages, resolved from the
   # local feed. Ignoring them prevents Dependabot from replacing those entries with
   # NuGet.org versions, which would bypass package-consumption verification.
   - package-ecosystem: nuget
-    directory: "/"
+    directory: "/src/sdk"
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
