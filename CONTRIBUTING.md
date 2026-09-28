@@ -8,7 +8,7 @@ helps confirm the scope and avoid duplicate work.
 ## Prerequisites
 
 - The .NET SDK version in [`global.json`](global.json). It is a **pin**, not a floor:
-  `rollForward: latestPatch` accepts a later patch of `10.0.3xx` and nothing else
+  `rollForward: latestPatch` accepts a later patch in the same feature band and nothing else
 - PowerShell 7 (`pwsh`). The scripts are cross-platform
 - Git on Windows configured so that line endings are not rewritten (see below)
 
