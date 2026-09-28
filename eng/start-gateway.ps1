@@ -4,7 +4,7 @@
 
 .DESCRIPTION
     With -Offline, the gateway uses a fixed response and tone instead of Whisper, a language
-    model, and Piper. The application consumes SDK packages from local-nuget; run pack-sdk.ps1
+    model, and Piper. The application consumes SDK packages from artifacts; run pack-sdk.ps1
     first after changing the SDK.
 
 .PARAMETER Token

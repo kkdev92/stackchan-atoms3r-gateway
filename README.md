@@ -299,7 +299,7 @@ Full detail is in [`docs/architecture.md`](docs/architecture.md).
 | --- | --- |
 | .NET | `net10.0` — single target, no multi-targeting |
 | Language | C# 14; `LangVersion` is never `latest` or `preview` |
-| SDK (to build) | `10.0.303`, pinned in `global.json` with `rollForward: latestPatch` |
+| SDK (to build) | The version in `global.json`, pinned with `rollForward: latestPatch` (later patches in the same feature band only) |
 | Runtime dependencies | none in `Abstractions`; `Microsoft.Extensions.*` abstractions elsewhere; Microsoft Agent Framework and the OpenAI client in `AgentFramework` only |
 | Scripts | PowerShell 7 (`pwsh`), cross-platform |
 | Device | AtomS3R with M5Stack Atomic Voice Base, running [stackchan-atoms3r](https://github.com/kkdev92/stackchan-atoms3r) `v0.1.0` or later |

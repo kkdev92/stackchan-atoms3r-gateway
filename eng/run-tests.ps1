@@ -4,7 +4,7 @@
 
 .DESCRIPTION
     Tests use the Microsoft Testing Platform selected in global.json. Application restore
-    requires SDK packages in local-nuget. After changing the SDK, run pack-sdk.ps1 first or use
+    requires SDK packages in artifacts. After changing the SDK, run pack-sdk.ps1 first or use
     build-all.ps1, which includes packaging.
 #>
 [CmdletBinding()]
