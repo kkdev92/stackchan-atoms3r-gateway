@@ -9,9 +9,14 @@ updates:
     open-pull-requests-limit: 3
 
   # Versions are centrally managed in Directory.Packages.props and locked in
-  # packages.lock.json, so an update has to touch both. Dependabot handles that
-  # for NuGet; a bump that forgets the lock file fails CI's --locked-mode
-  # restore rather than merging.
+  # packages.lock.json, so an update has to touch both; a bump that leaves a lock
+  # file behind fails CI's --locked-mode restore rather than merging. Dependabot
+  # rewrites the lock files of the projects that reference the package, but not of
+  # those that only receive it through a ProjectReference
+  # (dependabot/dependabot-core#13950). For a package the SDK depends on, some SDK
+  # test projects are among them, and the restore stops on them with NU1004.
+  # Regenerate the lock files on the pull request's branch with
+  # `dotnet restore src/sdk/StackChan.Gateway.Sdk.slnx --force-evaluate`.
   #
   # Dependabot finds projects through a solution or project file in the configured
   # directory. The repository root has neither, so the SDK solution is named instead;
@@ -24,10 +29,31 @@ updates:
   # The Kkdev92.StackChan.* entries are this repository's own packages, resolved from the
   # local feed. Ignoring them prevents Dependabot from replacing those entries with
   # NuGet.org versions, which would bypass package-consumption verification.
+  #
+  # Minor and patch updates arrive as one pull request. Separate ones would all edit
+  # Directory.Packages.props and often the same lock files, so merging one can
+  # leave the rest in conflict. Major updates still arrive one per pull request:
+  # each is a decision of its own, and for a package the SDK depends on, it raises
+  # the minimum version the published packages declare.
+  #
+  # Automatic rebasing is off. A refresh of a NuGet pull request can close it as no
+  # longer needed: the update is rerun in each directory the pull request touched,
+  # and the root, which holds Directory.Packages.props but no project, finds nothing
+  # to update (dependabot/dependabot-core#15699). Bring a branch up to date with
+  # "Update branch" instead, and do not ask Dependabot to rebase or recreate it.
+  # Turn rebasing back on once that issue is fixed.
   - package-ecosystem: nuget
     directory: "/src/sdk"
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    rebase-strategy: disabled
     ignore:
       - dependency-name: "Kkdev92.StackChan.*"
