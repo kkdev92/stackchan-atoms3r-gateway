@@ -440,13 +440,13 @@
       "kkdev92.stackchan.gateway.protocol.atoms3r": {
         "type": "Project",
         "dependencies": {
-          "Kkdev92.StackChan.Gateway.Abstractions": "[0.1.0, )"
+          "Kkdev92.StackChan.Gateway.Abstractions": "[0.1.1, )"
         }
       },
       "kkdev92.stackchan.gateway.testkit": {
         "type": "Project",
         "dependencies": {
-          "Kkdev92.StackChan.Gateway.Abstractions": "[0.1.0, )"
+          "Kkdev92.StackChan.Gateway.Abstractions": "[0.1.1, )"
         }
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions": {

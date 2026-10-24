@@ -21,13 +21,13 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.13" />
 
     <!-- StackChan Gateway SDK packages consumed by the application from the local feed -->
-    <PackageVersion Include="Kkdev92.StackChan.Gateway.Abstractions" Version="0.1.0" />
-    <PackageVersion Include="Kkdev92.StackChan.Gateway.Runtime" Version="0.1.0" />
-    <PackageVersion Include="Kkdev92.StackChan.Gateway.Protocol.Atoms3R" Version="0.1.0" />
-    <PackageVersion Include="Kkdev92.StackChan.Gateway.Providers" Version="0.1.0" />
-    <PackageVersion Include="Kkdev92.StackChan.Gateway.Capabilities" Version="0.1.0" />
-    <PackageVersion Include="Kkdev92.StackChan.Gateway.AgentFramework" Version="0.1.0" />
-    <PackageVersion Include="Kkdev92.StackChan.Gateway.Diagnostics" Version="0.1.0" />
-    <PackageVersion Include="Kkdev92.StackChan.Gateway.TestKit" Version="0.1.0" />
+    <PackageVersion Include="Kkdev92.StackChan.Gateway.Abstractions" Version="0.1.1" />
+    <PackageVersion Include="Kkdev92.StackChan.Gateway.Runtime" Version="0.1.1" />
+    <PackageVersion Include="Kkdev92.StackChan.Gateway.Protocol.Atoms3R" Version="0.1.1" />
+    <PackageVersion Include="Kkdev92.StackChan.Gateway.Providers" Version="0.1.1" />
+    <PackageVersion Include="Kkdev92.StackChan.Gateway.Capabilities" Version="0.1.1" />
+    <PackageVersion Include="Kkdev92.StackChan.Gateway.AgentFramework" Version="0.1.1" />
+    <PackageVersion Include="Kkdev92.StackChan.Gateway.Diagnostics" Version="0.1.1" />
+    <PackageVersion Include="Kkdev92.StackChan.Gateway.TestKit" Version="0.1.1" />
   </ItemGroup>
 </Project>

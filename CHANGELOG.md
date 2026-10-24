@@ -13,6 +13,27 @@ changes something on this side.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-24
+
+The code of the eight packages is what 0.1.0 shipped. Only dependency floors move, to the versions
+the repository has built and tested against since 0.1.0.
+
+### Changed
+
+- `Kkdev92.StackChan.Gateway.AgentFramework` depends on `Microsoft.Agents.AI` and
+  `Microsoft.Agents.AI.OpenAI` 1.25.0 or later, up from 1.17.0; `Microsoft.Extensions.AI` 10.11.0,
+  up from 10.9.0; `OpenAI` 2.14.0, up from 2.13.0; and `Microsoft.Extensions.Hosting.Abstractions`,
+  `Microsoft.Extensions.Logging.Abstractions` and `Microsoft.Extensions.Options.ConfigurationExtensions`
+  10.0.13, up from 10.0.11. `Microsoft.Agents.AI` 1.18 through 1.22 carry changes that project marks
+  as breaking; none of them reach the types this package uses, but an application that also uses
+  `Microsoft.Agents.AI` directly is moved to 1.25.0 or later with this release
+- `Kkdev92.StackChan.Gateway.Runtime` depends on `Microsoft.Extensions.Logging.Abstractions` and
+  `Microsoft.Extensions.Options.ConfigurationExtensions` 10.0.13 or later, up from 10.0.11
+- `Kkdev92.StackChan.Gateway.Capabilities` depends on `Microsoft.Extensions.Logging.Abstractions`
+  10.0.13 or later, up from 10.0.11
+- `Kkdev92.StackChan.Gateway.Diagnostics` depends on
+  `Microsoft.Extensions.Options.ConfigurationExtensions` 10.0.13 or later, up from 10.0.11
+
 ## [0.1.0] - 2026-08-31
 
 First release, published to NuGet.org.
@@ -57,5 +78,6 @@ First release, published to NuGet.org.
 - Verified on real hardware. Regression coverage includes admission ordering, malformed WAV
   chunk lengths, and parser complexity
 
-[Unreleased]: https://github.com/kkdev92/stackchan-atoms3r-gateway/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/kkdev92/stackchan-atoms3r-gateway/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/kkdev92/stackchan-atoms3r-gateway/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/kkdev92/stackchan-atoms3r-gateway/releases/tag/v0.1.0

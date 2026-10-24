@@ -328,7 +328,7 @@
       "kkdev92.stackchan.gateway.agentframework": {
         "type": "Project",
         "dependencies": {
-          "Kkdev92.StackChan.Gateway.Abstractions": "[0.1.0, )",
+          "Kkdev92.StackChan.Gateway.Abstractions": "[0.1.1, )",
           "Microsoft.Agents.AI": "[1.25.0, )",
           "Microsoft.Agents.AI.OpenAI": "[1.25.0, )",
           "Microsoft.Extensions.AI": "[10.11.0, )",

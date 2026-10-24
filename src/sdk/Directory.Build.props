@@ -4,7 +4,7 @@
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <!-- SDK version shared by Directory.Packages.props references and release tags. -->
-    <VersionPrefix>0.1.0</VersionPrefix>
+    <VersionPrefix>0.1.1</VersionPrefix>
     <Authors>kkdev92</Authors>
     <Company>kkdev92</Company>
     <Product>StackChan Gateway SDK</Product>

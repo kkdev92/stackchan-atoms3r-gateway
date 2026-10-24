@@ -212,7 +212,7 @@
       "kkdev92.stackchan.gateway.runtime": {
         "type": "Project",
         "dependencies": {
-          "Kkdev92.StackChan.Gateway.Abstractions": "[0.1.0, )",
+          "Kkdev92.StackChan.Gateway.Abstractions": "[0.1.1, )",
           "Microsoft.Extensions.Logging.Abstractions": "[10.0.13, )",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "[10.0.13, )"
         }
@@ -220,7 +220,7 @@
       "kkdev92.stackchan.gateway.testkit": {
         "type": "Project",
         "dependencies": {
-          "Kkdev92.StackChan.Gateway.Abstractions": "[0.1.0, )"
+          "Kkdev92.StackChan.Gateway.Abstractions": "[0.1.1, )"
         }
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions": {
