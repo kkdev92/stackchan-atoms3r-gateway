@@ -13,6 +13,14 @@ changes something on this side.
 
 ## [Unreleased]
 
+### Changed
+
+- `Kkdev92.StackChan.Gateway.AgentFramework` depends on `Microsoft.Agents.AI` and
+  `Microsoft.Agents.AI.OpenAI` 1.26.0 or later, up from 1.25.0. In 1.26.0 the experimental
+  `AgentSessionStore` has a new abstract method, `DeleteSessionAsync`. This package does not use
+  that type, but an application that derives from it is moved to 1.26.0 or later with this release
+  and has to implement the method
+
 ## [0.1.1] - 2026-10-24
 
 The code of the eight packages is what 0.1.0 shipped. Only dependency floors move, to the versions
