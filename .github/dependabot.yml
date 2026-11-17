@@ -57,3 +57,16 @@ updates:
     rebase-strategy: disabled
     ignore:
       - dependency-name: "Kkdev92.StackChan.*"
+      # The SDK packages target net10.0 only, and the Microsoft.Extensions versions in
+      # Directory.Packages.props become the dependency lower bounds in their nuspecs. A major
+      # update would raise every consumer to the newer Microsoft.Extensions packages, apps
+      # still on .NET 10 included; Microsoft.Extensions.AI 11.0 also depends on the 11.0
+      # Microsoft.Extensions abstractions on net10.0. Microsoft.AspNetCore.Mvc.Testing 11.0
+      # targets net11.0 only, so the test projects cannot restore it.
+      #
+      # Remove these when net11.0 joins the target frameworks. Minor and patch updates on
+      # the 10.0 line still arrive in the group.
+      - dependency-name: "Microsoft.Extensions.*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "Microsoft.AspNetCore.Mvc.Testing"
+        update-types: ["version-update:semver-major"]
