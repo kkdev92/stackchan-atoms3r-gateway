@@ -13,6 +13,11 @@ changes something on this side.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-19
+
+The code of the eight packages is what 0.1.1 shipped. Only one dependency floor moves, to the
+version the repository has built and tested against since 0.1.1.
+
 ### Changed
 
 - `Kkdev92.StackChan.Gateway.AgentFramework` depends on `Microsoft.Agents.AI` and
@@ -86,6 +91,7 @@ First release, published to NuGet.org.
 - Verified on real hardware. Regression coverage includes admission ordering, malformed WAV
   chunk lengths, and parser complexity
 
-[Unreleased]: https://github.com/kkdev92/stackchan-atoms3r-gateway/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/kkdev92/stackchan-atoms3r-gateway/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/kkdev92/stackchan-atoms3r-gateway/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/kkdev92/stackchan-atoms3r-gateway/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/kkdev92/stackchan-atoms3r-gateway/releases/tag/v0.1.0
