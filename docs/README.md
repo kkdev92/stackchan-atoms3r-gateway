@@ -34,7 +34,7 @@ checks used here, allowing a host to verify the wire requirements directly.
 [Known Limitations](../README.md#known-limitations) describe the current constraints and
 compatibility boundaries.
 
-**Changing this repository.** [`CONTRIBUTING.md`](../CONTRIBUTING.md) describes the development
+**Changing this repository.** [`PROJECT_GUIDE.md`](../PROJECT_GUIDE.md) describes the development
 workflow and enforced design requirements; [`architecture.md`](architecture.md) explains why
 those requirements exist.
 
@@ -56,5 +56,5 @@ device wire contract, device HTTP API, and hardware. These documents summarize o
 needed to configure or explain the gateway and link to the detailed firmware documentation.
 
 Related documents live outside this directory. `eng/PACKAGE-README-FOOTER.md` is the shared
-closing section for package READMEs, and [`CONTRIBUTING.md`](../CONTRIBUTING.md) describes the
+closing section for package READMEs, and [`PROJECT_GUIDE.md`](../PROJECT_GUIDE.md) describes the
 development workflow and requirements enforced by tests.
