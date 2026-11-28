@@ -24,6 +24,8 @@ Fixed firmware, extensible gateway
 
 ## Table of Contents
 
+Before reporting a problem or working on this project, read the [project guide](PROJECT_GUIDE.md).
+
 - [Features](#features)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
@@ -249,7 +251,7 @@ live gateway is in [`docs/operations.md`](docs/operations.md).
   format directly and does not expose a device-protocol abstraction
 - **Plain HTTP between device and gateway.** The firmware does not implement TLS, so the audio,
   the transcript and the token are visible to anything watching the local network. This is a
-  property of the device, not a setting here — see [SECURITY.md](SECURITY.md)
+  property of the device, not a setting here — see the [project guide](PROJECT_GUIDE.md#transport-is-not-encrypted--action-required)
 - **Provider latency is deployment-specific.** Model inference and speech synthesis usually
   dominate time to first audio. Sentence-at-a-time synthesis streams completed sentences but
   does not make the configured providers faster
@@ -334,8 +336,9 @@ does.
   `device-sim` is run with `--save`; downstream services may have their own retention policies
 
 **Transport is not encrypted.** The device firmware does not implement TLS. Use a network you
-control, and do not expose the gateway to the internet. [SECURITY.md](SECURITY.md) has the threat
-model and the reporting process.
+control, and do not expose the gateway to the internet. The
+[security section of the project guide](PROJECT_GUIDE.md#security-and-private-reports) has the
+threat model and the reporting process.
 
 ---
 
@@ -356,33 +359,13 @@ The device wire contract is owned by the firmware repository, not this one:
 
 ## Contributing
 
-Bug reports, documentation fixes, and focused pull requests are welcome. Thank you for taking
-the time to improve the project.
-
-```bash
-pwsh eng/build-all.ps1
-```
-
-That command runs the SDK tests, packs the SDK, and then runs the reference host tests against
-the packed packages. See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow,
-enforced design requirements, and line-ending configuration.
-
-Helpful things when reporting bugs:
-
-- The package versions, or the commit if you built from source, and `dotnet --version`
-- Whether it also happens in fixed-response mode
-  (`start-gateway.ps1 -Offline -Token <32-char-token>`), which removes the recognizer, model, and
-  synthesizer from the request path
-- Whether `device-sim --scenario all` passes
-- The startup configuration log, after redacting endpoints, model names, and other deployment details
-- The firmware version, from the device's `device.describe`
-
-Please do not include a device token, an API key, or a recording in an issue. Issues are public;
-redact logs and reproduction details before posting them.
+Start with the [project guide](PROJECT_GUIDE.md) for development and verification. To submit an issue or pull request, see the [shared contribution guidelines](https://github.com/kkdev92/.github/blob/main/CONTRIBUTING.md).
 
 ---
 
 ## Support & Maintenance Policy
+
+For a bug report, follow the [reporting instructions](PROJECT_GUIDE.md#reporting-a-problem).
 
 This is a personal hobby project maintained in spare time. It is active, but support is
 best-effort: I'll do my best to review issues and PRs, and releases may be a bit slow sometimes —
